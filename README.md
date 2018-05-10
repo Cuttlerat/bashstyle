@@ -1,4 +1,4 @@
-# progrium/bashstyle
+# Bash Best Practices
 
 Bash is the JavaScript of systems programming. Although in some cases it's better to use a systems language like C or Go, Bash is an ideal systems language for smaller POSIX-oriented or command line tasks. Here's three quick reasons why:
 
