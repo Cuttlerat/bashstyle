@@ -14,6 +14,7 @@ Keep in mind this is not for general shell scripting, these are rules specifical
 
  * Always double quote variables, including subshells. No naked `$` signs
    * This rule gets you pretty far. Read http://mywiki.wooledge.org/Quotes for details
+ * Always turn your variables into `${ .. }` for more readability
  * All code goes in a function. Even if it's one function, `main`. 
    * Unless a library script, you can do global script settings and call `main`. That's it.
    * Avoid global variables. Though when defining constants use `readonly`
@@ -22,13 +23,16 @@ Keep in mind this is not for general shell scripting, these are rules specifical
  * Always use `local` when setting variables, unless there is reason to use `declare`
    * Exception being rare cases when you are intentionally setting a variable in an outer scope.
  * Variable names should be lowercase unless exported to environment.
- * Always use `set -eo pipefail`. Fail fast and be aware of exit codes. 
+ * Always use `set -euo pipefail`. Fail fast and be aware of exit codes. 
    * Use `|| true` on programs that you intentionally let exit non-zero.
+   * Try to always use `-u` flag. If you need to check var, do it by `${VAR:-}`
  * Never use deprecated style. Most notably:
    * Define functions as `myfunc() { ... }`, not `function myfunc { ... }`
    * Always use `[[` instead of `[` or `test`
    * Never use backticks, use `$( ... )`
+   * Never use `$[ ... ]` for arithmetic, use `$(( ... ))`
    * See http://wiki.bash-hackers.org/scripting/obsolete for more
+
  * Prefer absolute paths (leverage $PWD), always qualify relative paths with `./`.
  * Always use `declare` and name variable arguments at the top of functions that are more than 2-lines
    * Example: `declare arg1="$1" arg2="$2"`
@@ -44,6 +48,7 @@ If you know what you're doing, you can bend or break some of these rules, but ge
  * Use Bash variable substitution if possible before awk/sed.
  * Generally use double quotes unless it makes more sense to use single quotes.
  * For simple conditionals, try using `&&` and `||`.
+   * Note that it can't be used instead of `if ...; then ...; else ...; fi` because `true && false || echo 1` will print 1
  * Don't be afraid of `printf`, it's more powerful than `echo`.
  * Put `then`, `do`, etc on same line, not newline.
  * Skip `[[ ... ]]` in your if-expression if you can test for exit code instead.
@@ -58,7 +63,8 @@ If you know what you're doing, you can bend or break some of these rules, but ge
    * This can be queried/extracted with a simple function using reflection.
  * Be conscious of the need for portability. Bash to run in a container can make more assumptions than Bash made to run on multiple platforms.
  * When expecting or exporting environment, consider namespacing variables when subshells may be involved. 
- * Use hard tabs. Heredocs ignore leading tabs, allowing better indentation.
+ * Never use hard tabs the only exception is Heredocs.
+   * Put Heredocs into functions for better identations
  
 ## Good References and Help
 
