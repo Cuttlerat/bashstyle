@@ -15,7 +15,7 @@ Keep in mind this is not for general shell scripting, these are rules specifical
  * Always double quote variables, including subshells. No naked `$` signs
    * This rule gets you pretty far. Read http://mywiki.wooledge.org/Quotes for details
  * Always turn your variables into `${ .. }` for more readability
- * All code goes in a function. Even if it's one function, `main`. 
+ * All code goes in a function. Even if it's one function, `main`.
    * Unless a library script, you can do global script settings and call `main`. That's it.
    * Avoid global variables. Though when defining constants use `readonly`
  * Always have a `main` function for runnable scripts, called with `main` or `main "$@"`
@@ -23,7 +23,7 @@ Keep in mind this is not for general shell scripting, these are rules specifical
  * Always use `local` when setting variables, unless there is reason to use `declare`
    * Exception being rare cases when you are intentionally setting a variable in an outer scope.
  * Variable names should be lowercase unless exported to environment.
- * Always use `set -euo pipefail`. Fail fast and be aware of exit codes. 
+ * Always use `set -euo pipefail`. Fail fast and be aware of exit codes.
    * Use `|| true` on programs that you intentionally let exit non-zero.
    * Try to always use `-u` flag. If you need to check var, do it by `${VAR:-}`
  * Never use deprecated style. Most notably:
@@ -32,7 +32,6 @@ Keep in mind this is not for general shell scripting, these are rules specifical
    * Never use backticks, use `$( ... )`
    * Never use `$[ ... ]` for arithmetic, use `$(( ... ))`
    * See http://wiki.bash-hackers.org/scripting/obsolete for more
-
  * Prefer absolute paths (leverage $PWD), always qualify relative paths with `./`.
  * Always use `declare` and name variable arguments at the top of functions that are more than 2-lines
    * Example: `declare arg1="$1" arg2="$2"`
