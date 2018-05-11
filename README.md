@@ -117,7 +117,7 @@ fi
 
 ```bash
 temp_file="$(mktemp -t cleanup_example.XXXXXXXX)"
-function cleanup {
+cleanup() {
     rm -rf "${temp_file}"
 }
 trap cleanup EXIT
