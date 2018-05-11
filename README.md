@@ -45,6 +45,7 @@ If you know what you're doing, you can bend or break some of these rules, but ge
 ## Best Practices and Tips
 
  * Use Bash variable substitution if possible before awk/sed.
+ * If you use temp files, always cleanup them with `trap cleanup_function EXIT`
  * Generally use double quotes unless it makes more sense to use single quotes.
  * For simple conditionals, try using `&&` and `||`.
    * Note that it can't be used instead of `if ...; then ...; else ...; fi` because `true && false || echo 1` will print 1
@@ -110,6 +111,16 @@ fi
 if [[ "$(grep -m1 'foo' somefile)" ]]; then
   ...
 fi
+```
+
+### Cleanup
+
+```bash
+temp_file="$(mktemp -t cleanup_example.XXXXXXXX)"
+function cleanup {
+    rm -rf "${temp_file}"
+}
+trap cleanup EXIT
 ```
 
 ### More todo
