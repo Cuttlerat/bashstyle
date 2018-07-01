@@ -54,7 +54,7 @@ If you know what you're doing, you can bend or break some of these rules, but ge
  * Skip `[[ ... ]]` in your if-expression if you can test for exit code instead.
  * Use `.sh` or `.bash` extension if file is meant to be included/sourced. Never on executable script.
  * Put complex one-liners of `sed`, `perl`, etc in a standalone function with a descriptive name.
- * Good idea to include `[[ "$TRACE" ]] && set -x`
+ * Good idea to include `[[ "${TRACE:-}" ]] && set -x`
  * Design for simplicity and obvious usage.
    * Avoid option flags and parsing, try optional environment variables instead.
    * Use subcommands for necessary different "modes".
